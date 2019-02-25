@@ -2,6 +2,4 @@
 
 Amazing!
 
-Incredible!
-
 Genial!
