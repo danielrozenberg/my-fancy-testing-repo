@@ -1,3 +1,3 @@
 # my-fancy-testing-repo
 
-Amazing!.
+Amazing!....
