@@ -2,6 +2,6 @@
 
 Amazing!
 
-Incredible!
+Incredible
 
 Genial!
