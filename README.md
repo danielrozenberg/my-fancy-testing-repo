@@ -3,5 +3,3 @@
 Amazing!
 
 Incredible!
-
-Genial!
