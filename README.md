@@ -5,5 +5,3 @@ Amazing!
 Incredible!
 
 Genial!
-
-Bam.
