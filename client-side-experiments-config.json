@@ -2,8 +2,7 @@
   "experiments": [
     {
       "name": "foo",
-      "percentage": 0.1,
-      "rtvPrefix": ["05"]
+      "percentage": 0.1
     }
   ]
 }
