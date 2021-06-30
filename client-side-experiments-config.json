@@ -2,7 +2,7 @@
   "experiments": [
     {
       "name": "foo",
-      "percentage": 0.2
+      "percentage": 0.3
     }
   ]
 }
