@@ -39,18 +39,23 @@ jobs:
             # name that's older than two months ago, we can stop archiving.
             if [[ "${BRANCH}" > "${MIN_DATE}" ]]; then
               break
+            fi
 
             echo "Creating archived tag for branch ${BRANCH}"
+            cat << DEBUGGING
             gh api \
               --method POST \
               --header "Accept: application/vnd.github+json" \
               /repos/${{ github.repository }}/git/refs \
               --field ref="refs/tags/archived/${BRANCH}"
               --field sha=$(git rev-parse "origin/${BRANCH}")
+            DEBUGGING
 
             echo "Deleting branch ${BRANCH}"
+            cat << DEBUGGING
             gh api \
               --method DELETE \
               --header "Accept: application/vnd.github+json" \
               /repos/${{ github.repository }}/git/refs/heads/${BRANCH}
+            DEBUGGING
           done
