@@ -42,12 +42,12 @@ jobs:
 
             echo "Creating archived tag for branch ${BRANCH}"
             cat << EOF
-            gh api \
-              --method POST \
-              --header "Accept: application/vnd.github+json" \
-              /repos/${{ github.repository }}/git/refs \
-              --field ref="refs/tags/archived/${BRANCH}"
-              --field sha=$(git rev-parse "origin/${BRANCH}")
+              gh api \
+                --method POST \
+                --header "Accept: application/vnd.github+json" \
+                /repos/${{ github.repository }}/git/refs \
+                --field ref="refs/tags/archived/${BRANCH}"
+                --field sha=$(git rev-parse "origin/${BRANCH}")
             EOF
 
             echo 1
