@@ -41,7 +41,7 @@ jobs:
               break
 
             echo "Creating archived tag for branch ${BRANCH}"
-            echo << EOF
+            cat << EOF
             gh api \
               --method POST \
               --header "Accept: application/vnd.github+json" \
@@ -51,7 +51,7 @@ jobs:
             EOF
 
             echo "Deleting branch ${BRANCH}"
-            echo << EOF
+            cat << EOF
             gh api \
               --method DELETE \
               --header "Accept: application/vnd.github+json" \
