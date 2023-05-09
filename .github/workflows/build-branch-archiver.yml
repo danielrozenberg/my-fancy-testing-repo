@@ -50,11 +50,12 @@ jobs:
               --field sha=$(git rev-parse "origin/${BRANCH}")
             EOF
 
-            echo "Deleting branch ${BRANCH}"
-            cat << EOF
-            gh api \
-              --method DELETE \
-              --header "Accept: application/vnd.github+json" \
-              /repos/${{ github.repository }}/git/refs/heads/${BRANCH}
-            EOF
+            echo 1
+            # echo "Deleting branch ${BRANCH}"
+            # cat << EOF
+            # gh api \
+            #   --method DELETE \
+            #   --header "Accept: application/vnd.github+json" \
+            #   /repos/${{ github.repository }}/git/refs/heads/${BRANCH}
+            # EOF
           done
