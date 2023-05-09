@@ -48,12 +48,9 @@ jobs:
             echo '  --field ref="refs/tags/archived/${BRANCH}"'
             echo '  --field sha=$(git rev-parse "origin/${BRANCH}")'
 
-            echo 1
-            # echo "Deleting branch ${BRANCH}"
-            # cat << EOF
-            # gh api \
-            #   --method DELETE \
-            #   --header "Accept: application/vnd.github+json" \
-            #   /repos/${{ github.repository }}/git/refs/heads/${BRANCH}
-            # EOF
+            echo "Deleting branch ${BRANCH}"
+            echo 'gh api \'
+            echo '  --method DELETE \'
+            echo '  --header "Accept: application/vnd.github+json" \'
+            echo '  /repos/${{ github.repository }}/git/refs/heads/${BRANCH}'
           done
