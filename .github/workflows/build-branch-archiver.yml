@@ -18,6 +18,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
         run: |
           MIN_DATE=$(date --date "-2 months" --utc "+%y%m%d")
+          echo "Looking for build branches before ${MIN_DATE}..."
 
           if [[ "${GITHUB_TOKEN}" != ghp_* ]]; then
             echo "This job must have a personal token set as the GITHUB_TOKEN env variable."
