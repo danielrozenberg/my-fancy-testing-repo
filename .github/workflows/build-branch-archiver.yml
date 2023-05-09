@@ -1,0 +1,60 @@
+name: build-branch-archiver
+
+on:
+  workflow_dispatch:
+
+jobs:
+  archive-build-branches:
+    runs-on: ubuntu-latest
+    environment: build-branch-archiver.yml
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: ⭐ Archive Build Branches ⭐
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
+        run: |
+          MIN_DATE=$(date --date "-2 months" --utc "+%y%m%d")
+
+          if [[ "${GITHUB_TOKEN}" != ghp_* ]]; then
+            echo "This job must have a personal token set as the GITHUB_TOKEN env variable."
+            exit 1
+          fi
+
+          for BRANCH in $(git branch --list --remote "origin/[0-9][0-9][0-9][0-9][0-9][0-9].[0-9]*"); do
+            # Branches are returned in `origin/${branch_name}` format. Remove the `origin/` prefix.
+            BRANCH=${BRANCH#origin/}
+
+            # `git branch --list` uses glob patterns, which might match branch names that aren't correct
+            # build version numbers, such as "123456.7a". This regular expression is an extra safety
+            # check to avoid matching such branch names.
+            if [[ ! "${BRANCH}" =~ ^[0-9]{6}\.[0-9]+$ ]]; then
+              continue
+            fi
+
+            # `git branch --list` returns branches in lexicographical order, so once we reach a branch
+            # name that's older than two months ago, we can stop archiving.
+            if [[ "${BRANCH}" > "${MIN_DATE}" ]]; then
+              break
+
+            echo "Creating archived tag for branch ${BRANCH}"
+            echo << DEBUGGING
+            gh api \
+              --method POST \
+              --header "Accept: application/vnd.github+json" \
+              /repos/${{ github.repository }}/git/refs \
+              --field ref="refs/tags/archived/${BRANCH}"
+              --field sha=$(git rev-parse "origin/${BRANCH}")
+            DEBUGGING
+
+            echo "Deleting branch ${BRANCH}"
+            echo << DEBUGGING
+            gh api \
+              --method DELETE \
+              --header "Accept: application/vnd.github+json" \
+              /repos/${{ github.repository }}/git/refs/heads/${BRANCH}
+            DEBUGGING
+          done
