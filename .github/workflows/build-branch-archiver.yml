@@ -41,16 +41,16 @@ jobs:
               break
 
             echo "Creating archived tag for branch ${BRANCH}"
-            echo 'gh api \'
-            echo '  --method POST \'
-            echo '  --header "Accept: application/vnd.github+json" \'
-            echo '  /repos/${{ github.repository }}/git/refs \'
-            echo '  --field ref="refs/tags/archived/${BRANCH}"'
-            echo '  --field sha=$(git rev-parse "origin/${BRANCH}")'
+            gh api \
+              --method POST \
+              --header "Accept: application/vnd.github+json" \
+              /repos/${{ github.repository }}/git/refs \
+              --field ref="refs/tags/archived/${BRANCH}"
+              --field sha=$(git rev-parse "origin/${BRANCH}")
 
             echo "Deleting branch ${BRANCH}"
-            echo 'gh api \'
-            echo '  --method DELETE \'
-            echo '  --header "Accept: application/vnd.github+json" \'
-            echo '  /repos/${{ github.repository }}/git/refs/heads/${BRANCH}'
+            gh api \
+              --method DELETE \
+              --header "Accept: application/vnd.github+json" \
+              /repos/${{ github.repository }}/git/refs/heads/${BRANCH}
           done
