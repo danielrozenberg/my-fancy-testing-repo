@@ -26,6 +26,7 @@ jobs:
           fi
 
           for BRANCH in $(git branch --list --remote "origin/[0-9][0-9][0-9][0-9][0-9][0-9].[0-9]*"); do
+            SHA=$(git rev-parse "${BRANCH}")
             # Branches are returned in `origin/${branch_name}` format. Remove the `origin/` prefix.
             BRANCH=${BRANCH#origin/}
 
@@ -47,8 +48,8 @@ jobs:
               --method POST \
               --header "Accept: application/vnd.github+json" \
               /repos/${{ github.repository }}/git/refs \
-              --field ref="refs/tags/archived/${BRANCH}"
-              --field sha=$(git rev-parse "origin/${BRANCH}")
+              --field ref="refs/tags/archived/${BRANCH}" \
+              --field sha="${SHA}"
 
             echo "Deleting branch ${BRANCH}"
             gh api \
