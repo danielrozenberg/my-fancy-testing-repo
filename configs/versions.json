@@ -1,0 +1,25 @@
+{
+  "beta-opt-in": "032402022342000",
+
+  "beta-traffic": "032401262004000",
+
+  "control": "022401191523000",
+
+  "experimental-opt-in": "002402022342000",
+
+  "experimental-traffic": "002401262004000",
+
+  "experimentA": null,
+
+  "experimentB": null,
+
+  "experimentC": null,
+
+  "lts": "012312012346000",
+
+  "nightly": "042402060239000",
+
+  "nightly-control": "052401191523000",
+
+  "stable": "012401191523000"
+}
